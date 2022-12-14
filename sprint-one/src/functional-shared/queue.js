@@ -2,7 +2,7 @@ var Queue = function() {
   // Hey! Rewrite in the new style. Your code will wind up looking very similar,
   // but try not not reference your old code in writing the new style.
   var someInstance = {};
-  someInstance.index = 0;
+  someInstance.count = 0;
 
   extend(someInstance, queueMethods);
 
@@ -19,16 +19,29 @@ var extend = function(to, from) {
 };
 
 var queueMethods = {
-  enqueue: function() {
-
+  enqueue: function(value) {
+    storage[this.count] = value;
+    this.count++;
   },
 
   dequeue: function() {
+    if (this.count) {
+      this.count--;
+    }
 
+    var result = storage[0];
+    delete storage[0];
+
+    for (var key in storage) {
+      storage[key - 1] = storage[key];
+    }
+    delete storage[this.count];
+
+    return result;
   },
 
   size: function() {
-
+    return this.count;
   }
 };
 

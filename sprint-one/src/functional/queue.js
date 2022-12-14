@@ -3,14 +3,14 @@ var Queue = function() {
   // Use an object with numeric keys to store values
   var storage = {};
   // need to set index as a key to enqueue
-  var index = 0;
+  var count = 0;
   // Implement the methods below
 
   someInstance.enqueue = function(value) {
     // add key and value pair to storage at the end
-    storage[index] = value;
+    storage[count] = value;
     // increment index
-    index++;
+    count++;
   };
 
   someInstance.dequeue = function() {
@@ -19,29 +19,22 @@ var Queue = function() {
     delete storage[0];
     // iterate over object key/value pairs to reduce index as position has moved
     for (var key in storage) {
-      // set index - 1
+      // set count - 1
       storage[key - 1] = storage[key];
       // remove old storage[key]
     }
     delete storage[someInstance.size() - 1];
 
-    // need to lower index when
-    if (index) {
-      index--;
+    // need to lower count when
+    if (count) {
+      count--;
     }
     return result;
   };
 
   someInstance.size = function() {
-    return Object.values(storage).length;
+    return count;
   };
 
   return someInstance;
 };
-
-
-
-// Enq - 0: Guy1
-// Enq - 1: Guy2
-// index is now 2
-// Deq - 1: Guy2 -> 0: Guy2
