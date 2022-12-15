@@ -4,39 +4,33 @@ var Stack = function() {
   var someInstance = {};
   someInstance.count = 0;
 
-  extend(someInstance, stackMethods);
+  _.extend(someInstance, stackMethods);
 
   return someInstance;
 };
 
 var storage = {};
 
-var extend = function(to, from) {
-  for (var key in from) {
-    to[key] = from[key];
-  }
+var stackMethods = {};
+stackMethods.push = function(value) {
+  storage[this.count] = value;
+  this.count++;
 };
 
-var stackMethods = {
-  push: function(value) {
-    storage[this.count] = value;
-    this.count++;
-  },
+stackMethods.pop = function() {
+  var result = storage[this.count - 1];
+  delete storage[this.count - 1];
 
-  pop: function() {
-    var result = storage[this.count - 1];
-    delete storage[this.count - 1];
-
-    if (this.count) {
-      this.count--;
-    }
-
-    return result;
-  },
-
-  size: function() {
-    return this.count;
+  if (this.count) {
+    this.count--;
   }
+
+  return result;
 };
+
+stackMethods.size = function() {
+  return this.count;
+};
+
 
 
