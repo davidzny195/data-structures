@@ -22,23 +22,18 @@ var LinkedList = function() {
     //if next is null, add node as the value of next key
     //initialize a new node
     var newNode = Node(value);
-    // when head does not exist, set head and tail to same node
+
     if (!list.head) {
       list.head = newNode;
-      list.tail = newNode;
-    } else {
-      // if linkedlist has elements
-      var currentNode = this.head;
-      // while next node exists, keep replacing until we get to null
-      while (currentNode.next) {
-        currentNode = currentNode.next;
-      }
-      // set newNode as last node
-      currentNode.next = newNode;
-
-      list.tail = newNode;
     }
+
+    if (list.tail) {
+      list.tail.next = newNode;
+    }
+
+    list.tail = newNode;
   };
+
 
   list.removeHead = function() {
     var removedHeadValue = list.head.value;

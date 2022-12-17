@@ -13,28 +13,32 @@ HashTable.prototype.insert = function(key, value) {
   //   [[k2, v2]],
   //   []
   // ];
+
   //create an array with key and value
-  //check for index length
   var tuple = [key, value];
   // [ , , ,[['steven', 'seagal']]]
   var bucket = this._storage.get(index);
 
   // if bucket
   if (bucket) {
+    var keyExists = false;
     for (var i = 0; i < bucket.length; i++) {
-    // replace key if key exists
+      // replace key if key exists
       if (bucket[i][0] === key) {
+        keyExists = true;
         return bucket[i][1] = value;
       }
     }
-    bucket.push(tuple);
+    if (!keyExists) {
+      // push when not duplication
+      bucket.push(tuple);
+    }
     // else if no bucket
   } else {
     this._storage.set(index, [tuple]);
   }
 
 };
-// [ , , ,[['steven', 'seagal']]]
 
 HashTable.prototype.retrieve = function(key) {
   var index = getIndexBelowMaxForKey(key, this._limit);
