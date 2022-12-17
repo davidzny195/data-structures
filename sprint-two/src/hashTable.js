@@ -27,15 +27,13 @@ HashTable.prototype.insert = function(key, value) {
         return bucket[i][1] = value;
       }
     }
-    // need to solve for when key exists, because it will replace + push
-    // set empty variable if needed
     bucket.push(tuple);
     // else if no bucket
   } else {
     this._storage.set(index, [tuple]);
   }
 
-
+};
 // [ , , ,[['steven', 'seagal']]]
 
 HashTable.prototype.retrieve = function(key) {
